@@ -1,0 +1,17 @@
+@charset "UTF-8";
+body {background-image:url("i1.jpeg");
+background-size: cover;
+position: absolute;
+top: 50%;
+left: 50%;
+width: 400px;
+padding: 40px;
+transform: translate(-50%, -50%);
+border-radius: 10px;}
+
+.container{
+	background-color: white;
+	margin:10px;
+
+	
+}
