@@ -9,32 +9,37 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
+
 public class Acta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 	@Id
 	private String id;
 	private String email_alumno;
+	private String nombre_alumno;
 	private String asignatura;
 	private boolean firma_vocal;
 	private boolean firma_secretario;
 	private boolean firma_presidente;
-	
+
 	private String email_coordinador;
 	private String email_vocal;
 	private String email_secretario;
 	private String email_presidente;
-	
-	
+
+	private String nombre_coordinador;
+	private String nombre_vocal;
+	private String nombre_secretario;
+	private String nombre_presidente;
+
 	private int status;
-	
+
 	private double nota;
 	private boolean es_definitiva;
-	
+
 	public Acta() {
-	   
-}
+
+	}
 
 	public String getId() {
 		return id;
@@ -48,8 +53,16 @@ public class Acta implements Serializable {
 		return email_alumno;
 	}
 
-	public void setEmail_alumno(String emailalumno) {
-		this.email_alumno = emailalumno;
+	public void setEmail_alumno(String email_alumno) {
+		this.email_alumno = email_alumno;
+	}
+
+	public String getNombre_alumno() {
+		return nombre_alumno;
+	}
+
+	public void setNombre_alumno(String nombre_alumno) {
+		this.nombre_alumno = nombre_alumno;
 	}
 
 	public String getAsignatura() {
@@ -116,6 +129,38 @@ public class Acta implements Serializable {
 		this.email_presidente = email_presidente;
 	}
 
+	public String getNombre_coordinador() {
+		return nombre_coordinador;
+	}
+
+	public void setNombre_coordinador(String nombre_coordinador) {
+		this.nombre_coordinador = nombre_coordinador;
+	}
+
+	public String getNombre_vocal() {
+		return nombre_vocal;
+	}
+
+	public void setNombre_vocal(String nombre_vocal) {
+		this.nombre_vocal = nombre_vocal;
+	}
+
+	public String getNombre_secretario() {
+		return nombre_secretario;
+	}
+
+	public void setNombre_secretario(String nombre_secretario) {
+		this.nombre_secretario = nombre_secretario;
+	}
+
+	public String getNombre_presidente() {
+		return nombre_presidente;
+	}
+
+	public void setNombre_presidente(String nombre_presidente) {
+		this.nombre_presidente = nombre_presidente;
+	}
+
 	public int getStatus() {
 		return status;
 	}
@@ -145,16 +190,21 @@ public class Acta implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((asignatura == null) ? 0 : asignatura.hashCode());
+		result = prime * result + ((email_alumno == null) ? 0 : email_alumno.hashCode());
 		result = prime * result + ((email_coordinador == null) ? 0 : email_coordinador.hashCode());
 		result = prime * result + ((email_presidente == null) ? 0 : email_presidente.hashCode());
 		result = prime * result + ((email_secretario == null) ? 0 : email_secretario.hashCode());
 		result = prime * result + ((email_vocal == null) ? 0 : email_vocal.hashCode());
-		result = prime * result + ((email_alumno == null) ? 0 : email_alumno.hashCode());
 		result = prime * result + (es_definitiva ? 1231 : 1237);
 		result = prime * result + (firma_presidente ? 1231 : 1237);
 		result = prime * result + (firma_secretario ? 1231 : 1237);
 		result = prime * result + (firma_vocal ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((nombre_alumno == null) ? 0 : nombre_alumno.hashCode());
+		result = prime * result + ((nombre_coordinador == null) ? 0 : nombre_coordinador.hashCode());
+		result = prime * result + ((nombre_presidente == null) ? 0 : nombre_presidente.hashCode());
+		result = prime * result + ((nombre_secretario == null) ? 0 : nombre_secretario.hashCode());
+		result = prime * result + ((nombre_vocal == null) ? 0 : nombre_vocal.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(nota);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -176,6 +226,11 @@ public class Acta implements Serializable {
 				return false;
 		} else if (!asignatura.equals(other.asignatura))
 			return false;
+		if (email_alumno == null) {
+			if (other.email_alumno != null)
+				return false;
+		} else if (!email_alumno.equals(other.email_alumno))
+			return false;
 		if (email_coordinador == null) {
 			if (other.email_coordinador != null)
 				return false;
@@ -196,11 +251,6 @@ public class Acta implements Serializable {
 				return false;
 		} else if (!email_vocal.equals(other.email_vocal))
 			return false;
-		if (email_alumno == null) {
-			if (other.email_alumno != null)
-				return false;
-		} else if (!email_alumno.equals(other.email_alumno))
-			return false;
 		if (es_definitiva != other.es_definitiva)
 			return false;
 		if (firma_presidente != other.firma_presidente)
@@ -214,13 +264,36 @@ public class Acta implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (nombre_alumno == null) {
+			if (other.nombre_alumno != null)
+				return false;
+		} else if (!nombre_alumno.equals(other.nombre_alumno))
+			return false;
+		if (nombre_coordinador == null) {
+			if (other.nombre_coordinador != null)
+				return false;
+		} else if (!nombre_coordinador.equals(other.nombre_coordinador))
+			return false;
+		if (nombre_presidente == null) {
+			if (other.nombre_presidente != null)
+				return false;
+		} else if (!nombre_presidente.equals(other.nombre_presidente))
+			return false;
+		if (nombre_secretario == null) {
+			if (other.nombre_secretario != null)
+				return false;
+		} else if (!nombre_secretario.equals(other.nombre_secretario))
+			return false;
+		if (nombre_vocal == null) {
+			if (other.nombre_vocal != null)
+				return false;
+		} else if (!nombre_vocal.equals(other.nombre_vocal))
+			return false;
 		if (Double.doubleToLongBits(nota) != Double.doubleToLongBits(other.nota))
 			return false;
 		if (status != other.status)
 			return false;
 		return true;
 	}
-
-	
 
 }

@@ -16,7 +16,7 @@
 <th>Alumno</th>
 <th>Asignatura</th>
 <th>Coordinador</th>
-<th>Nota Provisional</th>
+<th>Notal</th>
 <th>Estado</th>
 </tr>
 
@@ -24,9 +24,9 @@
 <form action="FormAdminServlet" method="post">
         <tr>
         <td>${actai.id}</td>
-        <td>${actai.emailalumno}</td>
+        <td>${actai.email_alumno}</td>
         <td>${actai.asignatura}</td>
-        <td>${actai.notaprovisional}</td>
+        <td>${actai.nota}</td>
         <td>${actai.status}</td>
 <%--         <td><input type="email" id="advisor" name="advisor" value="${actai.advisor}" /></td> --%>
 <%--         <td><input type="number" id="status" name="status" value="${actai.status}" min="0" max="8"/></td> --%>

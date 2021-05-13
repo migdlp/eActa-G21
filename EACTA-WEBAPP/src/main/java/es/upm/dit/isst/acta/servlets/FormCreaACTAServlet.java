@@ -44,9 +44,9 @@ public class FormCreaACTAServlet extends HttpServlet {
 		if (emailcoordinador.indexOf("upm.es") > 0) {
 			Acta acta = new Acta();
 			
-			acta.setEmail_alumno(req.getParameter("emailalumno"));
-			acta.setNota(Double.parseDouble(req.getParameter("notaprovisional")));
-			acta.setId(req.getParameter("emailalumno")+req.getParameter("asignatura"));
+			acta.setEmail_alumno(req.getParameter("email_alumno"));
+			acta.setNota(Double.parseDouble(req.getParameter("nota")));
+			acta.setId(req.getParameter("email_alumno")+req.getParameter("asignatura"));
 			acta.setStatus(1);
 			acta.setAsignatura((req.getParameter("asignatura")));
 			acta.setEmail_coordinador(emailcoordinador);
