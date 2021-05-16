@@ -9,7 +9,7 @@ public interface ACTADAO {
 
 	public Acta create(Acta acta);
 
-	public Acta read(String email);
+	public Acta read(String id);
 
 	public Acta update(Acta acta);
 

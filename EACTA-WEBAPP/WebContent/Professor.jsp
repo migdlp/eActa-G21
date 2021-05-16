@@ -11,21 +11,21 @@
 </head>
 <body>
 	<!-- PONE EL NOMBRE DEL PROFESOR QUE HAYA ENTRADO(Puede ser coordinador, vocal, secretario y presidente) -->
-	<c:if test="${acta[0].email_coordinador.equals(profesor)}">
-		<h1>${acta[0].nombre_coordinador}</h1>
+	<c:if test="${asignatura.email_coordinador.equals(profesor)}">
+		<h1>Coordinador: ${asignatura.nombre_coordinador}</h1>
 	</c:if>
-	<c:if test="${acta[0].email_vocal.equals(profesor)}">
-		<h1>${acta[0].nombre_vocal}</h1>
+	<c:if test="${asignatura.email_vocal.equals(profesor)}">
+		<h1>Vocal: ${asignatura.nombre_vocal}</h1>
 	</c:if>
-	<c:if test="${acta[0].email_secretario.equals(profesor)}">
-		<h1>${acta[0].nombre_secretario}</h1>
+	<c:if test="${asignatura.email_secretario.equals(profesor)}">
+		<h1>Secretario: ${asignatura.nombre_secretario}</h1>
 	</c:if>
-	<c:if test="${acta[0].email_coordinador.equals(profesor)}">
-		<h1>${acta[0].nombre_presidente}</h1>
+	<c:if test="${asignatura.email_presidente.equals(profesor)}">
+		<h1>Presidente: ${asignatura.nombre_presidente}</h1>
 	</c:if>
 
 <!-- MUESTRA ASIGNATURA -->
-<h2>${acta[0].asignatura}</h2>
+<h2>${asignatura.nombre}</h2>
 	<table border="1">
 
 		<tr>
@@ -38,7 +38,7 @@
 
 
 		<c:forEach items="${actas}" var="actai">
-			<c:if test="${actai.emailcoordinador.equals(profesor)}">
+			<c:if test="${actai.email_coordinador.equals(profesor)}">
 				<tr>
 					<td>${actai.id}</td>
 					<td>${actai.email_alumno}</td>
@@ -46,6 +46,57 @@
 					<td>${actai.nota}</td>
 					<td>${actai.status}</td>
 			</c:if>
+			
+		
+	<table border="1">
+
+		<tr>
+	
+			<th>Alumno</th>
+			<th>Email del alumno</th>
+			
+			<th>Email del Coordinador</th>
+			
+			<th>Email del Vocal</th>
+			
+			<th>Email del Secretario</th>
+			
+			<th>Email del Presidente</th>
+			<th>Estado</th>
+			<!--<th>Memoria</th>-->
+			<th>Nota</th>
+			<th>Actualizar</th>
+		</tr>
+
+		<c:forEach items="${actas}" var="actai">
+			<form action="FormAdminServlet" method="post">
+				<tr>
+					<td><input type="text" id="nombre_alumno" name="nombre_alumno"
+						value="${actai.nombre_alumno}" /></td>
+					<td><input type="email" id="email_alumno" name="email_alumno"
+						value="${actai.email_alumno}" /></td>
+					
+					<td><input type="email" id="email_coordinador" name="email_coordinador"
+						value="${actai.email_coordinador}" /></td>
+					<td><input type="text" id="nombre_vocal" name="nombre_vocal"
+				
+						value="${actai.email_vocal}" /></td>
+			
+					<td><input type="email" id="email_secretario" name="email_secretario"
+						value="${actai.email_secretario}" /></td>
+			
+					<td><input type="email" id="email_presidente" name="email_presidente"
+						value="${actai.email_presidente}" /></td>
+					<td><input type="number" id="status" name="status"
+						value="${actai.status}" min="0" max="8" /></td>
+					<td><input type="text" id="nota" name="nota"
+						value="${actai.nota}" /></td>
+					<td><input type="submit">Actualizar valores</input></td>
+				</tr>
+
+			</form>
+		</c:forEach>
+	</table>
 			<%-- <td><c:if test="${actai.status > 3}"> --%>
 			<!--                 <form action="FormBajaMemriaServlet"> -->
 			<%--                 <input type="hidden" name="actaemail" value="${actai.email}" /> --%>

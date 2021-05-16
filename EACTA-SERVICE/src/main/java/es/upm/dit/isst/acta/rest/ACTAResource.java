@@ -30,8 +30,8 @@ public class ACTAResource {
 	@GET
 	@Path("professor/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Acta> readAll (@PathParam("id") String id, String profesor) {
-	        return ACTADAOImplementation.getInstance().readAll(profesor);
+	public List<Acta> readAll (@PathParam("id") String id) {
+	        return ACTADAOImplementation.getInstance().readAll(id);
 
 	}
 	

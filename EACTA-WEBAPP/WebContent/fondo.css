@@ -1,12 +1,13 @@
 @charset "UTF-8";
 
-html{ background-image: url("i1.jpdeg");}
+html{ background-image: url("i1.jpeg");}
 
 body {background:white;
 background-size: cover;
 position: absolute;
 top: 50%;
-left: 30%;
+left: 50%;
+padding:10px;
 border: 15px solid #6d7890; 
 transform: translate(-50%, -50%);
 border-radius: 10px;}

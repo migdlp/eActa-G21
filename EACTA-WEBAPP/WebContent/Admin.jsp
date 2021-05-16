@@ -14,7 +14,7 @@
 	<table border="1">
 
 		<tr>
-			<th>Título</th>
+	
 			<th>Alumno</th>
 			<th>Email del alumno</th>
 			<th>Nombre del Coordinador</th>
@@ -93,6 +93,8 @@
 						placeholder="Nota" />
 		<button type="submit">Registrar</button>
 	</form>
+
+<%@ include file="FormLogout.jsp"%>
 
 </body>
 </html>

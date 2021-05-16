@@ -53,5 +53,6 @@
         <button type="submit">Descargar memoria</button>
   </form>
 </c:if>
+<%@ include file="FormLogout.jsp"%>
 </body>
 </html>

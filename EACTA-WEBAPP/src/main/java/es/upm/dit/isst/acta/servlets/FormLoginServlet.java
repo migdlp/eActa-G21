@@ -1,7 +1,5 @@
 package es.upm.dit.isst.acta.servlets;
 
-
-
 import java.io.IOException;
 import java.util.List;
 
@@ -18,6 +16,7 @@ import javax.ws.rs.core.MediaType;
 import org.glassfish.jersey.client.ClientConfig;
 
 import es.upm.dit.isst.acta.model.Acta;
+import es.upm.dit.isst.acta.model.Asignatura;
 
 /**
  * Servlet implementation class FormLoginServlet
@@ -25,55 +24,74 @@ import es.upm.dit.isst.acta.model.Acta;
 
 @WebServlet("/FormLoginServlet")
 public class FormLoginServlet extends HttpServlet {
-        private static final long serialVersionUID = 1L;
-        private final String ADMIN_EMAIL = "root";
-        private final String ADMIN_PASSWORD = "root";        
-        
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                           throws ServletException, IOException {
+	private static final long serialVersionUID = 1L;
+	private final String ADMIN_EMAIL = "root";
+	private final String ADMIN_PASSWORD = "root";
 
-            String email = req.getParameter("email");
-            String password = req.getParameter("password");
-            Client client = ClientBuilder.newClient(new ClientConfig());
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-            // autenticacion1
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		Client client = ClientBuilder.newClient(new ClientConfig());
 
-            if( ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password) ) {        
-                 req.getSession().setAttribute("admin", true);
-                 List<Acta> actas  = client.target(URLHelper.getURL())
-                        .request().accept(MediaType.APPLICATION_JSON)
-                        .get(new GenericType<List<Acta>>() {});
-                 req.setAttribute("actas", actas);
-               getServletContext().getRequestDispatcher("/Admin.jsp")
-                                  .forward(req,resp);
-                return;
-            }
+		// autenticacion1
 
-            // autenticacion2
-            if ( email.indexOf("@upm.es") > -1) {
-                    req.getSession().setAttribute("profesor", email);
-                    List<Acta> actas  = client.target(URLHelper.getURL()
-                                         + "/professor/" + email)
-                             .request().accept(MediaType.APPLICATION_JSON)
-                             .get(new GenericType<List<Acta>>() {});
-                    req.setAttribute("actas", actas);
-                    getServletContext().getRequestDispatcher("/Professor.jsp")
-                                  .forward(req,resp);
-                    return;
-            }            
+		if (ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password)) {
+			req.getSession().setAttribute("admin", true);
+			List<Acta> actas = client.target(URLHelper.getURL()).request().accept(MediaType.APPLICATION_JSON)
+					.get(new GenericType<List<Acta>>() {
+					});
+			req.setAttribute("actas", actas);
+			getServletContext().getRequestDispatcher("/Admin.jsp").forward(req, resp);
+			return;
+		}
 
-            // autenticacion3
-            Acta acta = null;
-            try { acta = client.target(URLHelper.getURL() + "/" + email)
-                            .request().accept(MediaType.APPLICATION_JSON).get(Acta.class);
-            }catch (Exception e) {
-            }
-            if ( null != acta ) {
-                    req.getSession().setAttribute("acta", acta);
-                    getServletContext().getRequestDispatcher("/Acta.jsp").forward(req,resp);
-                    return;
-            }
-            getServletContext().getRequestDispatcher("/index.html").forward(req,resp);
-        }
+		// autenticacion2
+		if (email.indexOf("@upm.es") > -1) {
+			
+			req.getSession().setAttribute("profesor", email);
+			
+
+			Asignatura asignatura = client.target(URLHelper.getURL_asignatura() + "/professor/" + email).request()
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<Asignatura>() {
+					});
+			req.setAttribute("asignatura", asignatura);
+			
+			List<Asignatura> asignaturas = client.target(URLHelper.getURL_asignatura()).request()
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Asignatura>>() {
+					});
+			req.setAttribute("asignaturas", asignaturas);
+			
+			if(asignatura==null) {
+				getServletContext().getRequestDispatcher("/RegistroProfesor.jsp").forward(req, resp);
+				return;
+			}
+			//Coge las actas y las envia a la vista del profesor
+
+			List<Acta> actas = client.target(URLHelper.getURL() + "/professor/" + email).request()
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Acta>>() {
+					});
+			
+			req.setAttribute("actas", actas);
+
+			
+			getServletContext().getRequestDispatcher("/Professor.jsp").forward(req, resp);
+			return;
+		}
+
+		// autenticacion3
+		Acta acta = null;
+		try {
+			acta = client.target(URLHelper.getURL() + "/" + email).request().accept(MediaType.APPLICATION_JSON)
+					.get(Acta.class);
+		} catch (Exception e) {
+		}
+		if (null != acta) {
+			req.getSession().setAttribute("acta", acta);
+			getServletContext().getRequestDispatcher("/Acta.jsp").forward(req, resp);
+			return;
+		}
+		getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+	}
 }
