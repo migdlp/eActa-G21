@@ -37,7 +37,7 @@
 			<th>Email del alumno</th>
 
 			<th>Email del Coordinador</th>
-			<th>Email del Vocal</th> 
+			<th>Email del Vocal</th>
 			<th>Email del Secretario</th>
 
 			<th>Email del Presidente</th>
@@ -46,54 +46,131 @@
 			<th>Nota</th>
 			<th>Actualizar</th>
 			<th>Acta</th>
+			<th>Firmar</th>
+
 
 		</tr>
 
 		<c:forEach items="${actas}" var="actai">
-			<form action="FormAdminServlet" method="post">
-				<tr>
-					<td><input type="text" id="asignatura" name="asignatura"
-						value="${actai.asignatura}" /></td>
-					<td><input type="text" id="nombre_alumno" name="nombre_alumno"
-						value="${actai.nombre_alumno}" /></td>
-					<td><input type="email" id="email_alumno" name="email_alumno"
-						value="${actai.email_alumno}" /></td>
+			<c:choose>
+				<c:when test="${asignatura.email_coordinador.equals(profesor)}">
 
-					<td><input type="email" id="email_coordinador"
-						name="email_coordinador" value="${actai.email_coordinador}" /></td>
-					<td><input type="text" id="nombre_vocal" name="nombre_vocal"
-						value="${actai.email_vocal}" /></td>
+					<form action="FormDefinitivaServlet" method="get">
+						<tr>
+							<td><input type="text" id="asignatura" name="asignatura"
+								value="${actai.asignatura}" /></td>
+							<td><input type="text" id="nombre_alumno"
+								name="nombre_alumno" value="${actai.nombre_alumno}" /></td>
+							<td><input type="email" id="email_alumno"
+								name="email_alumno" value="${actai.email_alumno}" /></td>
 
-					<td><input type="email" id="email_secretario"
-						name="email_secretario" value="${actai.email_secretario}" /></td>
+							<td><input type="email" id="email_coordinador"
+								name="email_coordinador" value="${actai.email_coordinador}" /></td>
+							<td><input type="text" id="nombre_vocal" name="nombre_vocal"
+								value="${actai.email_vocal}" /></td>
 
-					<td><input type="email" id="email_presidente"
-						name="email_presidente" value="${actai.email_presidente}" /></td>
-					<td><input type="number" id="status" name="status"
-						value="${actai.status}" min="0" max="8" /></td>
-					<td><input type="text" id="nota" name="nota"
-						value="${actai.nota}" /></td>
-					<td><button type="submit">Actualizar valores</button></td></form>
+							<td><input type="email" id="email_secretario"
+								name="email_secretario" value="${actai.email_secretario}" /></td>
+
+							<td><input type="email" id="email_presidente"
+								name="email_presidente" value="${actai.email_presidente}" /></td>
+							<td><input type="number" id="status" name="status"
+								value="${actai.status}" min="0" max="8" /></td>
+							<td><input type="text" id="nota" name="nota"
+								value="${actai.nota}" /></td>
+							<td><button type="submit">Actualizar valores</button></td>
+					</form>
 					<td><form action="CreaACTAPDFServlet" method="get">
-						<input type="hidden" id="asignatura" name="asignatura"
-						value="${actai.asignatura}" />
-						<input type="hidden" id="nombre_alumno" name="nombre_alumno"
-						value="${actai.nombre_alumno}" />
-						 	<input type="hidden" id="email_secretario"
-						name="email_secretario" value="${actai.email_secretario}" />
-						<input type="hidden" id="email_presidente"
-						name="email_presidente" value="${actai.email_presidente}" />
-						<input type="hidden" id="email_coordinador"
-						name="email_coordinador" value="${actai.email_coordinador}" />
-						<input type="hidden" id="nota" name="nota"
-						value="${actai.nota}" />
-						<input type="hidden" id="email"
-						name="email" value="${profesor}" />
+							<input type="hidden" id="asignatura" name="asignatura"
+								value="${actai.asignatura}" /> <input type="hidden"
+								id="nombre_alumno" name="nombre_alumno"
+								value="${actai.nombre_alumno}" /> <input type="hidden"
+								id="email_secretario" name="email_secretario"
+								value="${actai.email_secretario}" /> <input type="hidden"
+								id="email_presidente" name="email_presidente"
+								value="${actai.email_presidente}" /> <input type="hidden"
+								id="email_coordinador" name="email_coordinador"
+								value="${actai.email_coordinador}" /> <input type="hidden"
+								id="nota" name="nota" value="${actai.nota}" /> <input
+								type="hidden" id="email" name="email" value="${profesor}" />
 							<button type="submit">Descargar Acta</button>
 						</form></td>
-				</tr>
+					<td>No es necesaria la firma del coordinador</td>
+					</tr>
 
-			
+				</c:when>
+
+				<c:otherwise>
+
+					<tr>
+						<form action="FormDefinitivaServlet" method="get">
+							<td><input type="text" id="asignatura" name="asignatura"
+								value="${actai.asignatura}" /></td>
+							<td><input type="text" id="nombre_alumno"
+								name="nombre_alumno" value="${actai.nombre_alumno}" /></td>
+							<td><input type="email" id="email_alumno"
+								name="email_alumno" value="${actai.email_alumno}" /></td>
+
+							<td><input type="email" id="email_coordinador"
+								name="email_coordinador" value="${actai.email_coordinador}" /></td>
+							<td><input type="text" id="nombre_vocal" name="nombre_vocal"
+								value="${actai.email_vocal}" /></td>
+
+							<td><input type="email" id="email_secretario"
+								name="email_secretario" value="${actai.email_secretario}" /></td>
+
+							<td><input type="email" id="email_presidente"
+								name="email_presidente" value="${actai.email_presidente}" /></td>
+							<td><input type="number" id="status" name="status"
+								value="${actai.status}" min="0" max="8" /></td>
+							<td><input type="number" id="nota" name="nota"
+								value="${actai.nota}" /></td>
+							<td><button type="submit">Actualizar valores</button></td>
+						</form>
+
+						<td><form action="CreaACTAPDFServlet" method="get">
+								<input type="hidden" id="asignatura" name="asignatura"
+									value="${actai.asignatura}" /> <input type="hidden"
+									id="nombre_alumno" name="nombre_alumno"
+									value="${actai.nombre_alumno}" /> <input type="hidden"
+									id="email_secretario" name="email_secretario"
+									value="${actai.email_secretario}" /> <input type="hidden"
+									id="email_presidente" name="email_presidente"
+									value="${actai.email_presidente}" /> <input type="hidden"
+									id="email_coordinador" name="email_coordinador"
+									value="${actai.email_coordinador}" /> <input type="hidden"
+									id="nota" name="nota" value="${actai.nota}" /> <input
+									type="hidden" id="email" name="email" value="${profesor}" />
+								<button type="submit">Descargar Acta</button>
+							</form></td>
+						<td>
+							<form action="FirmaServlet" method="get">
+
+								<input type="hidden" id="asignatura" name="asignatura"
+									value="${actai.asignatura}" /> <input type="hidden"
+									id="nombre_alumno" name="nombre_alumno"
+									value="${actai.nombre_alumno}" /> <input type="hidden"
+									id="email_alumno" name="email_alumno"
+									value="${actai.email_alumno}" /> <input type="hidden"
+									id="email_coordinador" name="email_coordinador"
+									value="${actai.email_coordinador}" /> <input type="hidden"
+									id="nombre_vocal" name="nombre_vocal"
+									value="${actai.email_vocal}" /> <input type="hidden"
+									id="email_secretario" name="email_secretario"
+									value="${actai.email_secretario}" /> <input type="hidden"
+									id="email_presidente" name="email_presidente"
+									value="${actai.email_presidente}" /> <input type="hidden"
+									id="nota" name="nota" value="${actai.nota}" />
+								<c:if test="${actai.es_definitiva}">
+									<button type="submit">Firmar</button>
+								</c:if>
+							</form>
+						</td>
+
+					</tr>
+				</c:otherwise>
+			</c:choose>
+
 		</c:forEach>
 	</table>
 	<%-- <td><c:if test="${actai.status > 3}"> --%>
