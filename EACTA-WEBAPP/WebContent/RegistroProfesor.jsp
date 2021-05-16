@@ -13,8 +13,8 @@
 	<form action="FormCreaAsignaturaServlet">
 
 		<div class="user-box">
-			<input type="text" name="nombre" placeholder="Introduzca su Nombre">
 			<label>Username</label>
+			<input type="text" name="nombre" placeholder="Introduzca su Nombre">
 		</div>
 		<p>
 			<label >Elige Asignatura existente <select type="text" name="asignatura-existe">

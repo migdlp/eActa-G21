@@ -2,7 +2,9 @@
 
 html{ background-image: url("i1.jpeg");}
 
-body {background:white;
+body {
+	font: icon;
+	background:white;
 background-size: cover;
 position: absolute;
 top: 50%;
@@ -12,6 +14,16 @@ border: 15px solid #6d7890;
 transform: translate(-50%, -50%);
 border-radius: 10px;}
 
+table {
+
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+	
+  text-align: center;
+}
 .container{
 	background-color: white;
 	margin:10px;

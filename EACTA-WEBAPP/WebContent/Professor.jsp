@@ -26,37 +26,17 @@
 
 <!-- MUESTRA ASIGNATURA -->
 <h2>${asignatura.nombre}</h2>
-	<table border="1">
 
-		<tr>
-			<th>Id</th>
-			<th>Alumno</th>
-			<th>Asignatura</th>
-			<th>Nota</th>
-			<th>Estado</th>
-		</tr>
-
-
-		<c:forEach items="${actas}" var="actai">
-			<c:if test="${actai.email_coordinador.equals(profesor)}">
-				<tr>
-					<td>${actai.id}</td>
-					<td>${actai.email_alumno}</td>
-					<td>${actai.asignatura}</td>
-					<td>${actai.nota}</td>
-					<td>${actai.status}</td>
-			</c:if>
-			
-		
+<!-- MUESTRA TABLA	 -->
 	<table border="1">
 
 		<tr>
 	
+			<th>asignatura</th>
 			<th>Alumno</th>
 			<th>Email del alumno</th>
 			
 			<th>Email del Coordinador</th>
-			
 			<th>Email del Vocal</th>
 			
 			<th>Email del Secretario</th>
@@ -71,6 +51,8 @@
 		<c:forEach items="${actas}" var="actai">
 			<form action="FormAdminServlet" method="post">
 				<tr>
+				<td><input type="text" id="asignatura" name="asignatura"
+						value="${actai.asignatura}" /></td>
 					<td><input type="text" id="nombre_alumno" name="nombre_alumno"
 						value="${actai.nombre_alumno}" /></td>
 					<td><input type="email" id="email_alumno" name="email_alumno"
@@ -91,7 +73,7 @@
 						value="${actai.status}" min="0" max="8" /></td>
 					<td><input type="text" id="nota" name="nota"
 						value="${actai.nota}" /></td>
-					<td><input type="submit">Actualizar valores</input></td>
+					<td><button type="submit">Actualizar valores</button></td>
 				</tr>
 
 			</form>
@@ -140,7 +122,7 @@
 
 			</tr>
 
-		</c:forEach>
+
 
 	</table>
 

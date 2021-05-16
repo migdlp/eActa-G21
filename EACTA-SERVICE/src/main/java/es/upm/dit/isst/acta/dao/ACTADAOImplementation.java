@@ -120,7 +120,12 @@ public class ACTADAOImplementation implements ACTADAO {
 					continue;
 				}
 			}
-
+			if (acta.getEmail_alumno() != null) {
+				if (acta.getEmail_alumno().equals(professor)) {
+					res.add(acta);
+					continue;
+				}
+			}
 		}
 		return res;
 	}

@@ -81,17 +81,29 @@ public class FormLoginServlet extends HttpServlet {
 		}
 
 		// autenticacion3
+		List<Acta> actas = null;
 		Acta acta = null;
+		req.getSession().setAttribute("alumno", email);
 		try {
-			acta = client.target(URLHelper.getURL() + "/" + email).request().accept(MediaType.APPLICATION_JSON)
-					.get(Acta.class);
+			actas = client.target(URLHelper.getURL() + "/professor/" + email).request()
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Acta>>() {
+					});
+			acta = client.target(URLHelper.getURL() + "/" + email).request()
+					.accept(MediaType.APPLICATION_JSON).get(new GenericType<Acta>() {
+					});
+			System.out.println(acta);
 		} catch (Exception e) {
 		}
 		if (null != acta) {
-			req.getSession().setAttribute("acta", acta);
+			req.getSession().setAttribute("actas", actas);
 			getServletContext().getRequestDispatcher("/Acta.jsp").forward(req, resp);
 			return;
 		}
-		getServletContext().getRequestDispatcher("/index.html").forward(req, resp);
+		List<Asignatura> asignaturas = client.target(URLHelper.getURL_asignatura()).request()
+				.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Asignatura>>() {
+				});
+		
+		req.setAttribute("asignaturas", asignaturas);
+		getServletContext().getRequestDispatcher("/RegistroAlumno.jsp").forward(req, resp);
 	}
 }
