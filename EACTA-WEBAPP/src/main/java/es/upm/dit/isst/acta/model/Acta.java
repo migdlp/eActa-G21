@@ -29,6 +29,7 @@ public class Acta implements Serializable {
 	
 	private double nota;
 	private boolean es_definitiva;
+	private boolean documento;
 	
 	public Acta() {
 	   
@@ -178,11 +179,20 @@ public class Acta implements Serializable {
 		this.es_definitiva = es_definitiva;
 	}
 
+	public boolean isDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(boolean documento) {
+		this.documento = documento;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((asignatura == null) ? 0 : asignatura.hashCode());
+		result = prime * result + (documento ? 1231 : 1237);
 		result = prime * result + ((email_alumno == null) ? 0 : email_alumno.hashCode());
 		result = prime * result + ((email_coordinador == null) ? 0 : email_coordinador.hashCode());
 		result = prime * result + ((email_presidente == null) ? 0 : email_presidente.hashCode());
@@ -218,6 +228,8 @@ public class Acta implements Serializable {
 			if (other.asignatura != null)
 				return false;
 		} else if (!asignatura.equals(other.asignatura))
+			return false;
+		if (documento != other.documento)
 			return false;
 		if (email_alumno == null) {
 			if (other.email_alumno != null)
@@ -288,6 +300,8 @@ public class Acta implements Serializable {
 			return false;
 		return true;
 	}
+
+	
 
 
 }

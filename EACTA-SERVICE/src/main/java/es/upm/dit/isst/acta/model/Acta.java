@@ -1,15 +1,11 @@
 package es.upm.dit.isst.acta.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
-
 public class Acta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,25 +17,25 @@ public class Acta implements Serializable {
 	private boolean firma_vocal;
 	private boolean firma_secretario;
 	private boolean firma_presidente;
-
+	
 	private String email_coordinador;
 	private String email_vocal;
 	private String email_secretario;
 	private String email_presidente;
-
+	
 	private String nombre_coordinador;
 	private String nombre_vocal;
 	private String nombre_secretario;
 	private String nombre_presidente;
-
+	
 	private int status;
-
+	
 	private double nota;
 	private boolean es_definitiva;
-
+	
 	public Acta() {
-
-	}
+	   
+}
 
 	public String getId() {
 		return id;
@@ -295,5 +291,6 @@ public class Acta implements Serializable {
 			return false;
 		return true;
 	}
+
 
 }

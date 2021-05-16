@@ -55,10 +55,9 @@ public class FormCreaACTAServlet extends HttpServlet {
 				// si el alumno ha escogido la asignatura se crea el acta
 			
 				if (asignaturas.get(i).getNombre() != null && req.getParameter(asignaturas.get(i).getNombre()) != null) {
-					System.out.println(asignaturas.get(i).getNombre());
+				
 					String asig = asignaturas.get(i).getNombre().trim();
-					System.out.println(req.getParameter("email_alumno"));
-					System.out.println(req.getParameter("nombre_alumno"));
+				
 					
 					if (req.getParameter(asig).equals("on")) {
 						String asignatura = asignaturas.get(i).getNombre();
