@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link href="fondo.css" rel="stylesheet" type="text/css">
-<title>Insert title here</title>
+<title>Profesor</title>
 </head>
 <body>
 	<!-- PONE EL NOMBRE DEL PROFESOR QUE HAYA ENTRADO(Puede ser coordinador, vocal, secretario y presidente) -->
@@ -66,7 +66,7 @@
 
 							<td><input type="email" id="email_coordinador"
 								name="email_coordinador" value="${actai.email_coordinador}" /></td>
-							<td><input type="text" id="nombre_vocal" name="nombre_vocal"
+							<td><input type="text" id="email_vocal" name="email_vocal"
 								value="${actai.email_vocal}" /></td>
 
 							<td><input type="email" id="email_secretario"
@@ -85,12 +85,15 @@
 								value="${actai.asignatura}" /> <input type="hidden"
 								id="nombre_alumno" name="nombre_alumno"
 								value="${actai.nombre_alumno}" /> <input type="hidden"
+									id="email_alumno" name="email_alumno"
+									value="${actai.email_alumno}" /><input type="hidden"
 								id="email_secretario" name="email_secretario"
 								value="${actai.email_secretario}" /> <input type="hidden"
 								id="email_presidente" name="email_presidente"
 								value="${actai.email_presidente}" /> <input type="hidden"
 								id="email_coordinador" name="email_coordinador"
-								value="${actai.email_coordinador}" /> <input type="hidden"
+								value="${actai.email_coordinador}" /><input type="hidden" id="email_vocal" name="email_vocal"
+								value="${actai.email_vocal}" /> <input type="hidden"
 								id="nota" name="nota" value="${actai.nota}" /> <input
 								type="hidden" id="email" name="email" value="${profesor}" />
 							<button type="submit">Descargar Acta</button>
@@ -113,7 +116,7 @@
 
 							<td><input type="email" id="email_coordinador"
 								name="email_coordinador" value="${actai.email_coordinador}" /></td>
-							<td><input type="text" id="nombre_vocal" name="nombre_vocal"
+							<td><input type="text" id="email_vocal" name="email_vocal"
 								value="${actai.email_vocal}" /></td>
 
 							<td><input type="email" id="email_secretario"
@@ -133,10 +136,14 @@
 									value="${actai.asignatura}" /> <input type="hidden"
 									id="nombre_alumno" name="nombre_alumno"
 									value="${actai.nombre_alumno}" /> <input type="hidden"
+									id="email_alumno" name="email_alumno"
+									value="${actai.email_alumno}" /><input type="hidden"
 									id="email_secretario" name="email_secretario"
 									value="${actai.email_secretario}" /> <input type="hidden"
 									id="email_presidente" name="email_presidente"
-									value="${actai.email_presidente}" /> <input type="hidden"
+									value="${actai.email_presidente}" />
+									<input type="hidden" id="email_vocal" name="email_vocal"
+								value="${actai.email_vocal}" /> <input type="hidden"
 									id="email_coordinador" name="email_coordinador"
 									value="${actai.email_coordinador}" /> <input type="hidden"
 									id="nota" name="nota" value="${actai.nota}" /> <input
@@ -154,13 +161,15 @@
 									value="${actai.email_alumno}" /> <input type="hidden"
 									id="email_coordinador" name="email_coordinador"
 									value="${actai.email_coordinador}" /> <input type="hidden"
-									id="nombre_vocal" name="nombre_vocal"
+									id="email_vocal" name="email_vocal"
 									value="${actai.email_vocal}" /> <input type="hidden"
 									id="email_secretario" name="email_secretario"
 									value="${actai.email_secretario}" /> <input type="hidden"
 									id="email_presidente" name="email_presidente"
 									value="${actai.email_presidente}" /> <input type="hidden"
 									id="nota" name="nota" value="${actai.nota}" />
+								<input
+								type="hidden"  name="profesor" value="${profesor}" />
 								<c:if test="${actai.es_definitiva}">
 									<button type="submit">Firmar</button>
 								</c:if>
@@ -223,12 +232,22 @@
 	<h2>Crear ACTA</h2>
 
 	<form action="FormCreaACTAServlet">
-		<input type="email" id="emailalumno" name="emailalumno"
-			placeholder="Email"> <input type="password" id="password"
-			name="password" placeholder="Password"> <input type="text"
-			id="asignatura" name="asignatura" placeholder="Asignatura"> <input
-			type="number" id="notaprovisional" name="notaprovisional"
-			placeholder="Nota">
+		<input type="text" id="asignatura" name="asignatura"
+			placeholder="Asignatura"> <input type="number" id="nota"
+			name="nota" placeholder="Nota"> <input type="hidden"
+			id="profesor" name="profesor" value="${profesor}" /> 
+			<input type="Text"
+			id="nombre_alumno" name="nombre_alumno" placeholder="Nombre Alumno"
+			value="${actai.nombre_alumno}" /> <input type="email"
+			id="email_alumno" name="email_alumno" value="${actai.email_alumno}" placeholder="Email Alumno"/>
+		<input type="email" id="email_coordinador" name="email_coordinador" placeholder="Email coordinador"
+			value="${actai.email_coordinador}" /> <input type="email"
+			id="nombre_vocal" name="nombre_vocal" value="${actai.email_vocal}" placeholder="Email vocal" />
+		<input type="email" id="email_secretario" name="email_secretario"
+			value="${actai.email_secretario}" placeholder="Email secretario"/> <input type="email"
+			id="email_presidente" name="email_presidente"
+			value="${actai.email_presidente}" placeholder="Email presidente"/>
+ 
 		<button type="submit">Registrar</button>
 
 	</form>

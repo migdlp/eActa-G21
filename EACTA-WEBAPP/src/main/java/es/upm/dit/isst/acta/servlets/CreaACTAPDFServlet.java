@@ -43,7 +43,7 @@ public class CreaACTAPDFServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpClient client = ClientBuilder.newClient(new ClientConfig()ServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -59,11 +59,18 @@ public class CreaACTAPDFServlet extends HttpServlet {
 			document.addPage(page);
 
 			PDPageContentStream contentStream = new PDPageContentStream(document, page);
-
+			Acta acta = client
+					.target(URLHelper.getURL() + "/" + req.getParameter("email_alumno")
+							+ req.getParameter("asignatura"))
+					.request().accept(MediaType.APPLICATION_JSON).get(new GenericType<Acta>() {
+					});
+			String firma_vocal = acta.isFirma_vocal() ? " ha firmado" : " no ha firmado";
+			String firma_secretario = acta.isFirma_secretario() ? " ha firmado" : " no ha firmado";
+			String firma_presidente = acta.isFirma_presidente() ? " ha firmado" : " no ha firmado";
 			// Text
 			int interlineado = -25;
 			contentStream.beginText();
-			contentStream.setFont(PDType1Font.TIMES_BOLD, 16);
+			contentStream.setFont(PDType1Font.TIMES_BOLD, 12);
 			contentStream.newLineAtOffset(20, page.getMediaBox().getHeight() - 52);
 			contentStream.showText("Acta de la asignatura: "+ req.getParameter("asignatura"));
 			contentStream.newLineAtOffset(0,interlineado);
@@ -73,12 +80,11 @@ public class CreaACTAPDFServlet extends HttpServlet {
 			contentStream.newLineAtOffset(0,interlineado*2);
 			contentStream.showText("Coordinador: "+ req.getParameter("email_coordinador"));
 			contentStream.newLineAtOffset(0,interlineado);
-			contentStream.showText("Presidente: "+ req.getParameter("email_presidente"));
+			contentStream.showText("Presidente: "+ req.getParameter("email_presidente")+ firma_presidente);
 			contentStream.newLineAtOffset(0,interlineado);
-			contentStream.showText("Secretario: "+ req.getParameter("email_secretario"));
+			contentStream.showText("Secretario: "+ req.getParameter("email_secretario")+ firma_secretario);
 			contentStream.newLineAtOffset(0,interlineado);
-			contentStream.showText("Vocal: "+ req.getParameter("email_vocal"));
-			
+			contentStream.showText("Vocal: "+ req.getParameter("email_vocal")+ firma_vocal);
 			
 			
 			contentStream.endText();
@@ -93,7 +99,7 @@ public class CreaACTAPDFServlet extends HttpServlet {
 			document.save(output);
 			
 			//DESCARGA ACTA.PDF 	
-			File resultFile = File.createTempFile("Acta",".pdf");
+			File resultFile = File.createTempFile("Acta-"+acta.getAsignatura()+"-"+ acta.getNombre_alumno()+"-",".pdf");
 	       
 	       
 			try(OutputStream outputStream = new FileOutputStream(resultFile)) {
@@ -113,6 +119,7 @@ public class CreaACTAPDFServlet extends HttpServlet {
 		}
 		
 //		Envia a la vista de profesor
+		req.setAttribute("profesor", email);
 		Asignatura asignatura = client.target(URLHelper.getURL_asignatura() + "/professor/" + email).request()
 				.accept(MediaType.APPLICATION_JSON).get(new GenericType<Asignatura>() {
 				});

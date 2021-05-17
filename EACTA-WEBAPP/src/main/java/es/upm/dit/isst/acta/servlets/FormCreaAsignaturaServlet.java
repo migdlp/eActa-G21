@@ -78,7 +78,7 @@ public class FormCreaAsignaturaServlet extends HttpServlet {
 			Response r = client.target(URLHelper.getURL_asignatura()).request()
 					.post(Entity.entity(a, MediaType.APPLICATION_JSON), Response.class);
 			
-			if (r.getStatus() == 200) {
+			
 				// req.getSession().setAttribute("asignatura", a);
 				List<Acta> actas = client.target(URLHelper.getURL() + "/professor/" + email).request()
 						.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Acta>>() {
@@ -90,7 +90,7 @@ public class FormCreaAsignaturaServlet extends HttpServlet {
 				req.setAttribute("actas", actas);
 				getServletContext().getRequestDispatcher("/Professor.jsp").forward(req, res);
 				return;
-			}
+			
 
 		} else {
 			

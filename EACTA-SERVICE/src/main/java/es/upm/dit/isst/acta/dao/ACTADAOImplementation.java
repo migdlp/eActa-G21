@@ -25,7 +25,9 @@ public class ACTADAOImplementation implements ACTADAO {
 		Session session = SessionFactoryService.get().openSession();
 		session.beginTransaction();
 		try {
+			System.out.println("creando acta en dao");
 			session.save(acta);
+			
 		} catch (Exception e) {
 			acta = null;
 		}
@@ -87,11 +89,11 @@ public class ACTADAOImplementation implements ACTADAO {
 			return null;
 		List<Acta> res = new ArrayList<Acta>();
 		List<Acta> all = this.readAll();
-		System.out.println(professor);
+		
 
 		if (all.size() == 0)
 			return res;
-		for (Acta acta : all) {
+		for (Acta acta : all) { 	
 
 			if (acta.equals(null))
 				continue;

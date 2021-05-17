@@ -88,13 +88,11 @@ public class FormLoginServlet extends HttpServlet {
 			actas = client.target(URLHelper.getURL() + "/professor/" + email).request()
 					.accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Acta>>() {
 					});
-			acta = client.target(URLHelper.getURL() + "/" + email).request()
-					.accept(MediaType.APPLICATION_JSON).get(new GenericType<Acta>() {
-					});
+			
 			System.out.println(acta);
 		} catch (Exception e) {
 		}
-		if (null != acta) {
+		if (!actas.isEmpty()) {
 			req.getSession().setAttribute("actas", actas);
 			getServletContext().getRequestDispatcher("/Acta.jsp").forward(req, resp);
 			return;

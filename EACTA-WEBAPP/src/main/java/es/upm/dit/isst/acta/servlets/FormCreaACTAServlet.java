@@ -44,7 +44,7 @@ public class FormCreaACTAServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// ALUMNO CREA ACTA AUTOMÁTICAMENTE
 		String es_alumno = req.getParameter("es_alumno");
-		System.out.println("es  alumno" + es_alumno);
+		
 		Response r = null;
 		if (es_alumno != null) {
 			Client client = ClientBuilder.newClient(new ClientConfig());
@@ -56,10 +56,10 @@ public class FormCreaACTAServlet extends HttpServlet {
 			
 				if (asignaturas.get(i).getNombre() != null && req.getParameter(asignaturas.get(i).getNombre()) != null) {
 				
-					String asig = asignaturas.get(i).getNombre().trim();
-				
+					String asig = asignaturas.get(i).getNombre();
 					
 					if (req.getParameter(asig).equals("on")) {
+						System.out.println("creando acta");
 						String asignatura = asignaturas.get(i).getNombre();
 						// crea Acta
 						Acta acta = new Acta();
@@ -68,6 +68,7 @@ public class FormCreaACTAServlet extends HttpServlet {
 						
 						acta.setId(req.getParameter("email_alumno") + asignatura);
 						acta.setStatus(1);
+						acta.setNota(0);
 						acta.setAsignatura(asignatura);
 						acta.setNombre_coordinador(asignaturas.get(i).getNombre_coordinador());
 						acta.setEmail_coordinador(asignaturas.get(i).getEmail_coordinador());
@@ -82,15 +83,17 @@ public class FormCreaACTAServlet extends HttpServlet {
 						acta.setEmail_presidente(asignaturas.get(i).getEmail_presidente());
 						
 						// introduce el Acta en la BBDD
-						
+						System.out.println(acta.toString());
 						r = client.target(URLHelper.getURL()).request()
 								.post(Entity.entity(acta, MediaType.APPLICATION_JSON), Response.class);
+						
+						System.out.println("acta creada");
 					}
 				}
 					
 			}
 			
-				System.out.println("deberia estar en vista alum");
+				
 				List<Acta> actas = client.target(URLHelper.getURL() + "/professor/" + req.getParameter("email_alumno"))
 						.request().accept(MediaType.APPLICATION_JSON).get(new GenericType<List<Acta>>() {
 						});
@@ -103,9 +106,9 @@ public class FormCreaACTAServlet extends HttpServlet {
 			// PROFE O ADMIN CREAN ACTA
 			// String email_coordinador = (String)
 			// req.getSession().getAttribute("email_coordinador");
-			String email_coordinador = (String) req.getParameter("email_coordinador");
+			String email = (String) req.getParameter("profesor");
 
-			if (email_coordinador.indexOf("upm.es") > 0) {
+			if (email.indexOf("upm.es") > 0) {
 				Acta acta = new Acta();
 				acta.setNombre_alumno(req.getParameter("nombre_alumno"));
 				acta.setEmail_alumno(req.getParameter("email_alumno"));
@@ -114,7 +117,7 @@ public class FormCreaACTAServlet extends HttpServlet {
 				acta.setStatus(1);
 				acta.setAsignatura(req.getParameter("asignatura"));
 				acta.setNombre_coordinador(req.getParameter("nombre_coordinador"));
-				acta.setEmail_coordinador(email_coordinador);
+				acta.setEmail_coordinador(req.getParameter("email_coordinador"));
 
 				// aqui se cogería el nombre y email del vocal, secretario, presidente (si no
 				// hay se ponen por defecto

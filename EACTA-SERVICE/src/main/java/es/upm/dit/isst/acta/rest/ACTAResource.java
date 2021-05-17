@@ -38,9 +38,10 @@ public class ACTAResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response create(Acta tnew) throws URISyntaxException {
+		System.out.println("acta resource");
 	    Acta t = ACTADAOImplementation.getInstance().create(tnew);
 	    if (t != null) {
-	            URI uri = new URI("/ACTA-SERVICE/rest/ACTAs/" + t.getEmail_alumno());
+	            URI uri = new URI("/ACTA-SERVICE/rest/ACTAs/" + t.getId());
 	            return Response.created(uri).build();
 	    }
 	    return Response.status(Response.Status.NOT_FOUND).build();

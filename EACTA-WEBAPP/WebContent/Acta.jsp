@@ -15,22 +15,23 @@
 
 	<table border="1">
 		<tr>
-			<th>Id</th>
+
 			<th>Alumno</th>
 			<th>Asignatura</th>
 			<th>Coordinador</th>
 			<th>Nota</th>
+			<th>Es Definitiva</th>
 			<th>Estado</th>
 		</tr>
 
 		<c:forEach items="${actas}" var="actai">
 			<form action="FormAdminServlet" method="post">
 				<tr>
-					<td>${actai.id}</td>
 					<td>${actai.email_alumno}</td>
 					<td>${actai.asignatura}</td>
 					<td>${actai.email_coordinador}</td>
 					<td>${actai.nota}</td>
+					<td>${actai.es_definitiva}</td>
 					<td>${actai.status}</td>
 					<%--         <td><input type="email" id="advisor" name="advisor" value="${actai.advisor}" /></td> --%>
 					<%--         <td><input type="number" id="status" name="status" value="${actai.status}" min="0" max="8"/></td> --%>
@@ -43,21 +44,21 @@
 
 	</table>
 
-	<c:if test="${acta.status == 3}">
-		<form action="FormSubeMemoriaServlet" method="post"
-			enctype="multipart/form-data">
-			<input type="hidden" name="actaemail" value="${acta.email}" /> <input
-				type="file" name="file" /> <input type="submit">Subir
-			memoria</input>
-		</form>
-	</c:if>
+<%-- 	<c:if test="${acta.status == 3}"> --%>
+<!-- 		<form action="FormSubeMemoriaServlet" method="post" -->
+<!-- 			enctype="multipart/form-data"> -->
+<%-- 			<input type="hidden" name="actaemail" value="${acta.email}" /> <input --%>
+<!-- 				type="file" name="file" /> <input type="submit">Subir -->
+<!-- 			memoria</input> -->
+<!-- 		</form> -->
+<%-- 	</c:if> --%>
 
-	<c:if test="${acta.status > 3}">
-		<form action="FormBajaMemoriaServlet" method="get">
-			<input type="hidden" name="actaemail" value="${acta.email}" />
-			<button type="submit">Descargar memoria</button>
-		</form>
-	</c:if>
+<%-- 	<c:if test="${acta.status > 3}"> --%>
+<!-- 		<form action="FormBajaMemoriaServlet" method="get"> -->
+<%-- 			<input type="hidden" name="actaemail" value="${acta.email}" /> --%>
+<!-- 			<button type="submit">Descargar memoria</button> -->
+<!-- 		</form> -->
+<%-- 	</c:if> --%>
 	
       <span></span>
       <span></span>
